@@ -1,23 +1,26 @@
 name: build and integrate image to Dockerhub
+
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
+
 jobs:
   docker:
     runs-on: ubuntu-latest
-    steps:
-      - name: checkout repository
-        user: actions/checkout@v3
-      - name: build docker image
-        run: |
-          docker build -t kooloina/my_python_web_app-web:latest .
-      - name: Login to Dockerhub
-        user: docker/login-action@v2
-        with:
-          username: kooloina
-          password: tocken 
-      - name : push to Docker hube
-        run: |
-          docker push kooloina/my_python_web_app
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t kooloina/my_python_web_app-web:latest .
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push image to DockerHub
+        run: docker push kooloina/my_python_web_app-web:latest
