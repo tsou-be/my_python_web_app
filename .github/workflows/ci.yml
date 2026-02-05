@@ -16,7 +16,7 @@ jobs:
       user: docker/login-action@v2
       with:
         username: kooloina
-        password: tocken or password
+        password: tocken 
     - name : push to Docker hube
       run: |
         docker push kooloina/my_python_web_app
