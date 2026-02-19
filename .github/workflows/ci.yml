@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-push-deploy:
-    runs-on: [self-hosted, local, docker]
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
@@ -86,4 +86,4 @@ jobs:
 
           echo "Déployé le $(date) - Commit: ${{ github.sha }}" >> /opt/flask-app/deployment.log
 
-          log_success "Déploiement terminé avec succès"
+          log_success "Déploiement terminé avec succès" 
